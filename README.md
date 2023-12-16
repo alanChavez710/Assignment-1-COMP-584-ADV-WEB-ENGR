@@ -1,2 +1,2 @@
 # COMP-584-ADV-WEB-ENGR
-Assignments for COMP 584 ADV WEB ENGR
+Assignment 1 for COMP 584 ADV WEB ENGR
