@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Creator</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header-container">
+      <h1>Task Creator</h1>
+      <a id="newPostBtn" href="/new">Create New Task</a>
+    </div>
+    <div id="postsList">
+      <% posts.forEach(post => { %>
+        <div class="post-box">
+          <h2><%= post.title %></h2>
+          <small><%= new Date(post.date).toLocaleString() %></small>
+          <p><%= post.content %></p>
+          <small>By: <%= post.author %></small>
+          <div class="post-actions">
+            <a class="edit" href="/edit/<%= post.id %>">Edit</a>
+            <a class="delete" href="/api/posts/delete/<%= post.id %>">Delete</a>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    
+  </div>
+  <script>
+    var el = document.getElementById('postsList');
+  var originalIndex;
+  Sortable.create(el, {
+    animation: 150, // animation speed moving items when sorting, `0` — without animation
+    onStart: function (evt) {
+      // Store the original index when the drag starts
+      originalIndex = evt.oldIndex;
+    },
+    onEnd: function (evt) {
+      // Move the element back to its original position
+      var item = evt.item;
+      var parent = item.parentNode;
+      // Move the dragged item back to its original position
+      parent.removeChild(item);
+      parent.insertBefore(item, parent.children[originalIndex]);
+    }
+  });
+  </script>
+  
+
+</body>
+
+</html>
